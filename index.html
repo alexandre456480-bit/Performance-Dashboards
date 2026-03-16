@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Performance Dashboards — Portfólio profissional de dashboards personalizados, gráficos interativos e design de dados premium.">
+    <title>Performance Dashboards | Portfólio</title>
+    <link rel="icon" type="image/png" href="assets/Performance_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Neon Lines Background -->
+    <canvas id="neonCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-icon"><img src="assets/Performance_logo.png" alt="Performance Logo" class="logo-img"></span>
+                <span class="logo-text">Performance</span>
+            </a>
+            <div class="nav-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Pesquisar..." id="searchInput">
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link">Sobre</a></li>
+                <li><a href="#projects" class="nav-link">Projetos</a></li>
+                <li><a href="#why-buy" class="nav-link">Por que Comprar?</a></li>
+                <li><a href="#contact" class="nav-link">Contato</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-video-wrapper">
+            <video autoplay muted loop playsinline class="hero-video" id="heroVideo">
+                <source src="https://cdn.coverr.co/videos/coverr-data-visualization-screen/1080p.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <!-- Floating Particles -->
+        <div class="hero-particles" id="heroParticles"></div>
+
+        <!-- 3D Tilt Container -->
+        <div class="hero-content" id="heroContent">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Dashboard Analytics Studio</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line title-line-1">
+                    <span class="title-word" data-text="Performance">Performance</span>
+                </span>
+                <span class="title-line title-line-2">
+                    <span class="title-word title-accent" data-text="Dashboards">Dashboards</span>
+                </span>
+            </h1>
+            <p class="hero-subtitle">Transformando dados em decisões visuais poderosas</p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">
+                    <span>Ver Projetos</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#contact" class="btn btn-ghost">
+                    <span>Fale Comigo</span>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Dashboards</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="--">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Clientes</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="99">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Satisfação</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-star"></i> Serviços</span>
+                <h2 class="section-title">O que eu <span class="text-accent">faço</span></h2>
+                <p class="section-subtitle">Soluções completas em visualização de dados e dashboards interativos</p>
+            </div>
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="card-title">Dashboards Personalizados</h3>
+                    <p class="card-description">
+                        Crio dashboards personalizados para análises pessoais e empresariais com visual moderno e dados organizados.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-tag">Analytics</span>
+                        <span class="card-tag">BI</span>
+                        <span class="card-tag">KPIs</span>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="card-title">Gráficos Interativos</h3>
+                    <p class="card-description">
+                        Utilizo gráficos interativos que facilitam a interpretação de dados e a tomada de decisões.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-tag">Charts</span>
+                        <span class="card-tag">Data Viz</span>
+                        <span class="card-tag">Real-time</span>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="card-title">Design Profissional</h3>
+                    <p class="card-description">
+                        Interfaces modernas, minimalistas e focadas em experiência do usuário.
+                    </p>
+                    <div class="card-footer">
+                        <span class="card-tag">UI/UX</span>
+                        <span class="card-tag">Figma</span>
+                        <span class="card-tag">Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-folder-open"></i> Portfólio</span>
+                <h2 class="section-title">Projetos em <span class="text-accent">destaque</span></h2>
+                <p class="section-subtitle">Confira alguns dos dashboards e projetos que desenvolvi</p>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card" data-tilt>
+                    <div class="project-image-wrapper">
+                        <img src="assets/project1-preview.png" alt="Dashboard Financeiro" class="project-image" loading="lazy">
+                        <div class="project-image-overlay">
+                            <span class="project-category">Dashboard</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Dashboard Financeiro Pessoal</h3>
+                        <p class="project-description">Dashboard completo para controle financeiro pessoal com gráficos interativos, análise de gastos e metas financeiras.</p>
+                        <div class="project-techs">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>Chart.js</span>
+                        </div>
+                        <a href="projects/project1.html" class="btn btn-project">
+                            <span>Ver Projeto</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+                <!-- Project 2 -->
+                <article class="project-card" data-tilt>
+                    <div class="project-image-wrapper">
+                        <img src="assets/project2-preview.png" alt="Dashboard de Vendas" class="project-image" loading="lazy">
+                        <div class="project-image-overlay">
+                            <span class="project-category">Analytics</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Dashboard de Faturamento</h3>
+                        <p class="project-description">Painel analítico para acompanhamento de vendas em tempo real, com filtros avançados e relatórios automatizados.</p>
+                        <div class="project-techs">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>D3.js</span>
+                        </div>
+                        <a href="projects/project2.html" class="btn btn-project">
+                            <span>Ver Projeto</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Buy Section -->
+    <section class="why-buy" id="why-buy">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-lightbulb"></i> Benefícios</span>
+                <h2 class="section-title">Por que <span class="text-accent">comprar</span>?</h2>
+                <p class="section-subtitle">Descubra como dashboards transformam sua gestão pessoal e empresarial</p>
+            </div>
+            <div class="why-buy-grid">
+                <!-- Benefit 1 -->
+                <div class="why-buy-card glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="why-buy-icon-wrapper">
+                        <div class="why-buy-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="why-buy-icon-ring"></div>
+                    </div>
+                    <h3 class="card-title">Controle Financeiro</h3>
+                    <p class="card-description">
+                        Tenha visão completa de receitas, despesas e investimentos. Identifique gastos desnecessários, 
+                        planeje seu orçamento e alcance suas metas financeiras com dados visuais e claros.
+                    </p>
+                    <div class="why-buy-stats">
+                        <div class="why-buy-stat">
+                            <span class="why-buy-stat-number">85%</span>
+                            <span class="why-buy-stat-label">Mais economia</span>
+                        </div>
+                        <div class="why-buy-stat">
+                            <span class="why-buy-stat-number">3x</span>
+                            <span class="why-buy-stat-label">Mais organização</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="why-buy-card glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="why-buy-icon-wrapper">
+                        <div class="why-buy-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="why-buy-icon-ring"></div>
+                    </div>
+                    <h3 class="card-title">Gestão Empresarial</h3>
+                    <p class="card-description">
+                        Monitore KPIs, acompanhe vendas, controle estoque e analise a performance da sua equipe. 
+                        Tome decisões estratégicas baseadas em dados reais em tempo real.
+                    </p>
+                    <div class="why-buy-stats">
+                        <div class="why-buy-stat">
+                            <span class="why-buy-stat-number">60%</span>
+                            <span class="why-buy-stat-label">Mais eficiência</span>
+                        </div>
+                        <div class="why-buy-stat">
+                            <span class="why-buy-stat-number">2x</span>
+                            <span class="why-buy-stat-label">Mais rapidez</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="why-buy-card glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="why-buy-icon-wrapper">
+                        <div class="why-buy-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="why-buy-icon-ring"></div>
+                    </div>
+                    <h3 class="card-title">Decisões Inteligentes</h3>
+                    <p class="card-description">
+                        Pare de tomar decisões no escuro. Com dashboards, você transforma dados brutos em insights 
+                        visuais que facilitam o planejamento e a previsão de resultados.
+                    </p>
+                    <div class="why-buy-stats">
+                        <div class="why-buy-stat">
+                            <span class="why-buy-stat-number">90%</span>
+                            <span class="why-buy-stat-label">Mais assertividade</span>
+                        </div>
+                        <div class="why-buy-stat">
+                            <span class="why-buy-stat-number">5x</span>
+                            <span class="why-buy-stat-label">Mais velocidade</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="why-buy-card glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="why-buy-icon-wrapper">
+                        <div class="why-buy-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="why-buy-icon-ring"></div>
+                    </div>
+                    <h3 class="card-title">Produtividade Máxima</h3>
+                    <p class="card-description">
+                        Automatize relatórios, elimine planilhas manuais e reduza o tempo gasto analisando dados. 
+                        Foque no que importa: crescer e atingir seus objetivos.
+                    </p>
+                    <div class="why-buy-stats">
+                        <div class="why-buy-stat">
+                            <span class="why-buy-stat-number">70%</span>
+                            <span class="why-buy-stat-label">Menos tempo</span>
+                        </div>
+                        <div class="why-buy-stat">
+                            <span class="why-buy-stat-number">4x</span>
+                            <span class="why-buy-stat-label">Mais produtivo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA da seção -->
+            <div class="why-buy-cta">
+                <a href="#contact" class="btn btn-primary">
+                    <span>Quero meu Dashboard</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-envelope"></i> Contato</span>
+                <h2 class="section-title">Vamos trabalhar <span class="text-accent">juntos</span></h2>
+                <p class="section-subtitle">Entre em contato e vamos transformar seus dados em dashboards incríveis</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info-card glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Email</span>
+                                <a href="mailto:alexandre456480@gmail.com" class="contact-value">alexandre456480@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">WhatsApp</span>
+                                <a href="https://wa.me/5562996082008" class="contact-value">+55 62 99608-2008</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-actions">
+                        <a href="mailto:alexandre456480@gmail.com" class="btn btn-primary btn-contact" id="btnEmail">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Enviar Email</span>
+                        </a>
+                        <a href="https://wa.me/5562996082008" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-contact" id="btnWhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Abrir WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-visual glass-card" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="contact-visual-content">
+                        <div class="orbit-container">
+                            <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
+                            <div class="orbit orbit-2"><div class="orbit-dot"></div></div>
+                            <div class="orbit orbit-3"><div class="orbit-dot"></div></div>
+                            <div class="orbit-center">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                        </div>
+                        <p class="contact-visual-text">Pronto para iniciar seu projeto?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="assets/Performance_logo.png" alt="Performance Logo" class="footer-logo-img">
+                <span>Performance</span>
+            </div>
+            <p class="footer-text">&copy; 2026 Performance Dashboards. Todos os direitos reservados.</p>
+            <div class="footer-socials">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
