@@ -4,41 +4,51 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ---------- Custom Cursor ----------
+    // ---------- Device Detection ----------
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isMobile = window.matchMedia('(max-width: 768px)').matches || isTouchDevice;
+
+    // ---------- Custom Cursor (somente desktop) ----------
     const cursorDot = document.getElementById('cursorDot');
     const cursorRing = document.getElementById('cursorRing');
     let mouseX = 0, mouseY = 0;
     let ringX = 0, ringY = 0;
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        cursorDot.style.left = mouseX + 'px';
-        cursorDot.style.top = mouseY + 'px';
-    });
+    if (!isTouchDevice) {
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
 
-    // Smooth ring follow
-    function animateCursor() {
-        ringX += (mouseX - ringX) * 0.12;
-        ringY += (mouseY - ringY) * 0.12;
-        cursorRing.style.left = ringX + 'px';
-        cursorRing.style.top = ringY + 'px';
-        requestAnimationFrame(animateCursor);
+        // Smooth ring follow
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.12;
+            ringY += (mouseY - ringY) * 0.12;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Hover effect on interactive elements
+        const hoverTargets = document.querySelectorAll('a, button, .glass-card, .project-card, input, .btn');
+        hoverTargets.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('hover');
+                cursorRing.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('hover');
+                cursorRing.classList.remove('hover');
+            });
+        });
+    } else {
+        // Esconde cursor customizado em touch
+        if (cursorDot) cursorDot.style.display = 'none';
+        if (cursorRing) cursorRing.style.display = 'none';
     }
-    animateCursor();
-
-    // Hover effect on interactive elements
-    const hoverTargets = document.querySelectorAll('a, button, .glass-card, .project-card, input, .btn');
-    hoverTargets.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorDot.classList.add('hover');
-            cursorRing.classList.add('hover');
-        });
-        el.addEventListener('mouseleave', () => {
-            cursorDot.classList.remove('hover');
-            cursorRing.classList.remove('hover');
-        });
-    });
 
     // ---------- Navbar Scroll Effect ----------
     const navbar = document.getElementById('navbar');
@@ -75,16 +85,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.getElementById('navToggle');
     const navLinksContainer = document.getElementById('navLinks');
 
-    navToggle.addEventListener('click', () => {
+    navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         navToggle.classList.toggle('active');
         navLinksContainer.classList.toggle('open');
+        // Bloqueia scroll do body quando menu está aberto
+        document.body.style.overflow = navLinksContainer.classList.contains('open') ? 'hidden' : '';
     });
 
     navLinksContainer.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', () => {
             navToggle.classList.remove('active');
             navLinksContainer.classList.remove('open');
+            document.body.style.overflow = '';
         });
+    });
+
+    // Fecha o menu ao clicar fora dele
+    document.addEventListener('click', (e) => {
+        if (navLinksContainer.classList.contains('open') && 
+            !navLinksContainer.contains(e.target) && 
+            !navToggle.contains(e.target)) {
+            navToggle.classList.remove('active');
+            navLinksContainer.classList.remove('open');
+            document.body.style.overflow = '';
+        }
     });
 
     // ---------- Neon Lines Canvas ----------
@@ -183,9 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize
-    for (let i = 0; i < 15; i++) lines.push(new NeonLine());
-    for (let i = 0; i < 30; i++) particles.push(new FloatingParticle());
+    // Initialize — menos partículas no mobile para performance
+    const lineCount = isMobile ? 5 : 15;
+    const particleCount = isMobile ? 10 : 30;
+    for (let i = 0; i < lineCount; i++) lines.push(new NeonLine());
+    for (let i = 0; i < particleCount; i++) particles.push(new FloatingParticle());
 
     function animateCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -197,7 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---------- Hero Floating Particles ----------
     const heroParticles = document.getElementById('heroParticles');
-    for (let i = 0; i < 20; i++) {
+    const heroParticleCount = isMobile ? 8 : 20;
+    for (let i = 0; i < heroParticleCount; i++) {
         const dot = document.createElement('div');
         dot.style.cssText = `
             position: absolute;
@@ -215,47 +243,49 @@ document.addEventListener('DOMContentLoaded', () => {
         heroParticles.appendChild(dot);
     }
 
-    // ---------- 3D Tilt Effect ----------
-    const tiltElements = document.querySelectorAll('[data-tilt]');
+    // ---------- 3D Tilt Effect (somente desktop) ----------
+    if (!isTouchDevice) {
+        const tiltElements = document.querySelectorAll('[data-tilt]');
 
-    tiltElements.forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -6;
-            const rotateY = ((x - centerX) / centerX) * 6;
+        tiltElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -6;
+                const rotateY = ((x - centerX) / centerX) * 6;
 
-            el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+                el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
 
-            // Move glow
-            const glow = el.querySelector('.card-glow');
-            if (glow) {
-                glow.style.left = (x - 100) + 'px';
-                glow.style.top = (y - 100) + 'px';
-            }
+                // Move glow
+                const glow = el.querySelector('.card-glow');
+                if (glow) {
+                    glow.style.left = (x - 100) + 'px';
+                    glow.style.top = (y - 100) + 'px';
+                }
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
         });
 
-        el.addEventListener('mouseleave', () => {
-            el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        // ---------- Hero 3D Parallax on Mouse ----------
+        const heroContent = document.getElementById('heroContent');
+
+        document.addEventListener('mousemove', (e) => {
+            if (!heroContent) return;
+            const rect = heroContent.getBoundingClientRect();
+            if (rect.top > window.innerHeight || rect.bottom < 0) return;
+
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            heroContent.style.transform = `perspective(1200px) rotateX(${y * -2}deg) rotateY(${x * 2}deg)`;
         });
-    });
-
-    // ---------- Hero 3D Parallax on Mouse ----------
-    const heroContent = document.getElementById('heroContent');
-
-    document.addEventListener('mousemove', (e) => {
-        if (!heroContent) return;
-        const rect = heroContent.getBoundingClientRect();
-        if (rect.top > window.innerHeight || rect.bottom < 0) return;
-
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
-
-        heroContent.style.transform = `perspective(1200px) rotateX(${y * -2}deg) rotateY(${x * 2}deg)`;
-    });
+    }
 
     // ---------- Counter Animation ----------
     const counters = document.querySelectorAll('.stat-number');
@@ -363,21 +393,23 @@ document.addEventListener('DOMContentLoaded', () => {
         section.appendChild(blob);
     });
 
-    // ---------- Magnetic Button Effect ----------
-    const magneticBtns = document.querySelectorAll('.btn-primary, .btn-whatsapp, .btn-project');
+    // ---------- Magnetic Button Effect (somente desktop) ----------
+    if (!isTouchDevice) {
+        const magneticBtns = document.querySelectorAll('.btn-primary, .btn-whatsapp, .btn-project');
 
-    magneticBtns.forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.03)`;
-        });
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.03)`;
+            });
 
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0, 0) scale(1)';
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0) scale(1)';
+            });
         });
-    });
+    }
 
     // ---------- Smooth Scroll for Nav Links ----------
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
